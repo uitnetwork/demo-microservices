@@ -1,0 +1,1 @@
+include 'discovery-service', 'configuration-service', 'edge-service', 'oauth-service', 'resource-service', 'webapp'

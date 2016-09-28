@@ -1,0 +1,56 @@
+version: '2'
+
+services:
+  discovery-service:
+    image: 'microservices-test/discovery-service'
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8761:8761"
+    expose:
+      - "8761"
+
+  configuration-service:
+    image: 'microservices-test/configuration-service'
+    environment:
+          - SPRING_PROFILES_ACTIVE=docker
+    links:
+      - discovery-service
+
+  oauth-service:
+    image: 'microservices-test/oauth-service'
+    environment:
+          - SPRING_PROFILES_ACTIVE=docker
+    links:
+      - discovery-service
+      - configuration-service
+    ports:
+      - "8081:8081"
+
+  resource-service:
+    image: 'microservices-test/resource-service'
+    environment:
+          - SPRING_PROFILES_ACTIVE=docker
+    links:
+      - configuration-service
+      - discovery-service
+
+  edge-service:
+    image: 'microservices-test/edge-service'
+    environment:
+          - SPRING_PROFILES_ACTIVE=docker
+    links:
+      - configuration-service
+      - discovery-service
+      - resource-service
+
+  webapp:
+    image: 'microservices-test/webapp'
+    environment:
+          - SPRING_PROFILES_ACTIVE=docker
+    links:
+      - discovery-service
+      - configuration-service
+      - edge-service
+    ports:
+      - "8080:8080"

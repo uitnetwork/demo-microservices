@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: edge-service
+  cloud:
+    config:
+      # uri: http://127.0.0.1:8888
+      label: master
+      discovery:
+        enabled: true
+        service-id: configuration-service
+
+---
+
+spring:
+  profiles: docker
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/

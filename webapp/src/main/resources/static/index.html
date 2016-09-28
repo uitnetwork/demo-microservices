@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Microservices Test</title>
+   <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   </head>
+</head>
+<body>
+
+<div id="message"></div>
+
+<script>
+   $(document).ready(function () {
+      $.ajax({
+         url : 'api/resources1/what',
+         type : 'GET',
+         success : function(data) {
+            $("#message").text(data);
+         },
+         error : function () {
+            $("#message").text("Error somehow");
+         }
+      });
+   });
+</script>
+
+</body>
+</html>

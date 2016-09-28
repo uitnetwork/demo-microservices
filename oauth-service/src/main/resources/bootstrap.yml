@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: oauth-service
+  cloud:
+    config:
+      label: master
+      discovery:
+        enabled: true
+        service-id: configuration-service
+
+---
+
+spring:
+  profiles: docker
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
+
